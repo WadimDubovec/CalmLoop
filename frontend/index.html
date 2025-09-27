@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmLoop - Антистресс видео</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dacha-logo">DACHA</div>
+    <header>
+        <h1>🌿 CalmLoop</h1>
+        <div class="help-btn" title="Выберите смайлик-настроение и создайте антистресс-видео">?</div>
+    </header>
+
+    <main>
+        <div class="preview-container">
+            <div class="placeholder-text">Ваше видео появится здесь</div>
+            <video id="video-preview" loop autoplay muted playsinline></video>
+        </div>
+
+        <!-- Блок выбора настроения -->
+        <div class="mood-selector">
+            <button class="mood-btn" data-mood="calm" aria-label="Спокойное настроение">😌</button>
+            <button class="mood-btn" data-mood="happy" aria-label="Радостное настроение">😊</button>
+            <button class="mood-btn" data-mood="sad" aria-label="Грустное настроение">😢</button>
+            <button class="mood-btn" data-mood="angry" aria-label="Энергичное настроение">😡</button>
+            <button class="mood-btn" data-mood="dream" aria-label="Мечтательное настроение">🌙</button>
+        </div>
+    </main>
+
+    <footer class="controls">
+        <div class="action-buttons">
+            <button id="generate-btn">Создать видео</button>
+            <button id="download-btn" disabled>Скачать</button>
+        </div>
+        <div class="slider-container">
+            <input type="range" id="duration-slider" min="3" max="10" value="5">
+            <span>⏱ Длительность: <span id="duration-value">5</span> сек.</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

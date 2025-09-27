@@ -1,0 +1,203 @@
+body {
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+header {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+h1 {
+    color: #6a8caf;
+    margin: 0;
+    font-size: 3rem;
+}
+
+.help-btn {
+    border: 2px solid #6a8caf;
+    color: #6a8caf;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.help-btn:hover {
+    background: #6a8caf;
+    color: #fff;
+}
+
+.preview-container {
+    width: 600px;
+    height: 350px;
+    background: linear-gradient(45deg, #dfeeff, #cae6ff);
+    border-radius: 20px;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+#video-preview {
+    max-width: 100%;
+    max-height: 100%;
+    display: none;
+    border-radius: 20px;
+}
+
+.placeholder-text {
+    color: #9ab3c9;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.mood-selector {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mood-btn {
+    font-size: 3.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    transition: transform 0.2s ease, background 0.3s ease;
+    filter: grayscale(0.7);
+}
+
+.mood-btn:hover,
+.mood-btn.selected {
+    transform: scale(1.3);
+    filter: grayscale(0);
+    background: #e6f0ff;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    padding: 16px 35px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+#generate-btn {
+    background-color: #8ecae6;
+    color: white;
+}
+
+#generate-btn:hover {
+    background-color: #219ebc;
+    transform: translateY(-2px);
+}
+
+#download-btn {
+    background-color: #ffb4a2;
+    color: white;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#download-btn.active {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#download-btn.active:hover {
+    background-color: #e5989b;
+    transform: translateY(-2px);
+}
+
+.slider-container {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+#duration-slider {
+    width: 85%;
+    height: 8px;
+    cursor: pointer;
+}
+
+.dacha-logo {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    font-size: 2.5rem;
+    color: #5790eb;
+    font-weight: bold;
+    letter-spacing: 3px;
+    z-index: 1000;
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.toast-message {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #6a8caf;
+    color: #fff;
+    padding: 14px 25px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2000;
+}
+
+.toast-message.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+}
