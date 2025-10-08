@@ -37,3 +37,7 @@ async def generate_video(request: MoodRequest):
     """
     video_url = ml_service.generate_video(request)
     return {"status": "success", "video_url": video_url}
+
+
+
+
