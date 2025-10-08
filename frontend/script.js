@@ -23,6 +23,17 @@ function showMessage(text) {
         setTimeout(() => msg.remove(), 300);
     }, 2500);
 }
+// Вспомогательные функции
+function getMoodDisplayName(mood) {
+    const names = {
+        calm_weather: 'Спокойная погода', 
+        waterfall: 'Водопад', 
+        forest: 'Лес', 
+        thunderstorm: 'Гроза', 
+        night_sky: 'Ночное небо'
+    };
+    return names[mood];
+}
 
 // Выбор настроения
 moodButtons.forEach(button => {
@@ -79,45 +90,31 @@ generateBtn.addEventListener('click', async () => {
 // Показ демо-видео
 function showDemoVideo(mood) {
     const demoVideos = {
-        calm: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        happy: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-        sad: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-        angry: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-        dream: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'
+        calm_weather: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+        waterfall: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+        forest: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+        thunderstorm: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+        night_sky: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'
     };
 
     videoPreview.src = demoVideos[mood] || demoVideos.calm;
     placeholderText.style.display = 'none';
     videoPreview.style.display = 'block';
     videoPreview.classList.add('fade-in');
-    
-    videoPreview.play().catch(e => console.log('Автовоспроизведение заблокировано'));
+
+    videoPreview.muted = true; // обязательно для автоплея на мобильных
+    videoPreview.play()
+        .then(() => console.log("Видео воспроизводится"))
+        .catch(() => {
+            console.log("Автовоспроизведение заблокировано. Нажмите на видео для воспроизведения");
+            videoPreview.addEventListener('click', function playOnClick() {
+                videoPreview.play();
+                videoPreview.removeEventListener('click', playOnClick);
+            });
+        });
 
     downloadBtn.disabled = false;
     downloadBtn.classList.add('active');
-}
-
-// Скачивание видео
-downloadBtn.addEventListener('click', () => {
-    if (!downloadBtn.disabled && videoPreview.src) {
-        const a = document.createElement('a');
-        a.href = videoPreview.src;
-        a.download = `calmloop-${selectedMood}.mp4`;
-        a.click();
-        showMessage('⬇️ Скачивание началось!');
-    }
-});
-
-// Вспомогательные функции
-function getMoodDisplayName(mood) {
-    const names = {
-        calm: 'Спокойное', 
-        happy: 'Радостное', 
-        sad: 'Грустное', 
-        angry: 'Злое', 
-        dream: 'Сонливое'
-    };
-    return names[mood] || mood;
 }
 
 // Проверка сервера при загрузке

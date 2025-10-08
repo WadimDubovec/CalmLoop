@@ -1,61 +1,39 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import logging
-from datetime import datetime
+from schemas import MoodRequest
+from services import log_service, ml_service
 
-# Настройка логирования
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
-logger = logging.getLogger(__name__)
+app = FastAPI(title="CalmLoop API Gateway")
 
-app = FastAPI(title="CalmLoop API")
-
-# CORS
+# Настройка CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],        # Разрешить все домены (для разработки)
+    allow_methods=["*"],        # Все методы (GET, POST и т.д.)
+    allow_headers=["*"],        # Все заголовки
 )
 
-class MoodRequest(BaseModel):
-    mood: str
-    duration: int
-
-@app.post("/api/log-mood")
-async def log_mood(request: MoodRequest):
-    """Логируем выбранное настроение"""
-    
-    mood_display = {
-        "calm": "Спокойное",
-        "happy": "Радостное", 
-        "sad": "Грустное",
-        "angry": "Злое", 
-        "dream": "Сонливое"
-    }
-    
-    mood_name = mood_display.get(request.mood, request.mood)
-    
-    logger.info(f"🎭 Пользователь выбрал: '{mood_name}'")
-    logger.info(f"⏱ Длительность: {request.duration} сек.")
-    logger.info(f"📊 Данные: {request.dict()}")
-    logger.info("-" * 50)
-    
-    return {
-        "status": "success", 
-        "message": f"Настроение '{mood_name}' записано в лог!",
-        "logged_data": request.dict(),
-        "timestamp": datetime.now().isoformat()
-    }
-
+# Роут для проверки сервера
 @app.get("/")
 async def root():
-    return {"message": "CalmLoop API работает!", "status": "ok"}
+    return {"message": "CalmLoop API Gateway работает!", "status": "ok"}
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+# Роут для логирования настроения
+@app.post("/api/log-mood")
+async def log_mood(request: MoodRequest):
+    """
+    Получает настроение и длительность от фронтенда и
+    передает в сервис логирования.
+    """
+    result = log_service.log_mood(request)
+    return result
+
+# Роут для генерации видео через ML сервис
+@app.post("/api/generate-video")
+async def generate_video(request: MoodRequest):
+    """
+    Получает настроение и длительность,
+    передает в ML сервис для генерации видео.
+    """
+    video_url = ml_service.generate_video(request)
+    return {"status": "success", "video_url": video_url}
