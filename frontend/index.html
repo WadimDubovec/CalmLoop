@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CalmLoop - Антистресс видео</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="dacha-logo">DACHA</div>
+    <div class="help-btn" title="Выберите смайлик-настроение и создайте антистресс-видео">?</div>
     <header>
-        <h1>🌿 CalmLoop</h1>
-        <div class="help-btn" title="Выберите смайлик-настроение и создайте антистресс-видео">?</div>
+        <h1>CalmLoop</h1>
     </header>
+
 
     <main>
         <div class="preview-container">
@@ -34,12 +35,12 @@
             <button id="generate-btn">Создать видео</button>
             <button id="download-btn" disabled>Скачать</button>
         </div>
-        <div class="slider-container">
+        <!-- <div class="slider-container">
             <input type="range" id="duration-slider" min="3" max="10" value="5">
             <span>Длительность: <span id="duration-value">5</span> сек.</span>
-        </div>
+        </div> -->
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 </html>

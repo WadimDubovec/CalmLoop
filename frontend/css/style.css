@@ -16,7 +16,7 @@ header {
     width: 100%;
     max-width: 800px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 3rem;
 }
@@ -25,9 +25,13 @@ h1 {
     color: #6a8caf;
     margin: 0;
     font-size: 3rem;
+    text-align: center;
 }
 
 .help-btn {
+    position: fixed; /* фиксируем в углу */
+    top: 25px;
+    right: 25px;
     border: 2px solid #6a8caf;
     color: #6a8caf;
     border-radius: 50%;
@@ -39,6 +43,7 @@ h1 {
     font-weight: bold;
     font-size: 1.2rem;
     transition: background 0.3s ease, color 0.3s ease;
+    z-index: 1000; /* поверх всего */
 }
 
 .help-btn:hover {
@@ -88,13 +93,15 @@ h1 {
     padding: 15px;
     border-radius: 50%;
     transition: transform 0.2s ease, background 0.3s ease;
-    filter: grayscale(0.7);
+    filter: none;
+    opacity: 1;
+    color: inherit;
 }
 
 .mood-btn:hover,
 .mood-btn.selected {
     transform: scale(1.3);
-    filter: grayscale(0);
+    filter: none;
     background: #e6f0ff;
 }
 
