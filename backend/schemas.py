@@ -2,4 +2,4 @@ from pydantic import BaseModel
 
 class MoodRequest(BaseModel):
     mood: str
-    duration: int
+    duration: int = 5

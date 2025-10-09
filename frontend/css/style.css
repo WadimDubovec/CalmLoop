@@ -1,3 +1,4 @@
+/* Основные стили страницы */
 body {
     font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
     background-color: #f0f8ff;
@@ -12,6 +13,15 @@ body {
     text-align: center;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* расстояние между контейнером и блоком со смайликами */
+}
+
+/* Заголовок */
 header {
     width: 100%;
     max-width: 800px;
@@ -28,8 +38,9 @@ h1 {
     text-align: center;
 }
 
+/* Кнопка "?" в правом верхнем углу */
 .help-btn {
-    position: fixed; /* фиксируем в углу */
+    position: fixed;
     top: 25px;
     right: 25px;
     border: 2px solid #6a8caf;
@@ -43,7 +54,7 @@ h1 {
     font-weight: bold;
     font-size: 1.2rem;
     transition: background 0.3s ease, color 0.3s ease;
-    z-index: 1000; /* поверх всего */
+    z-index: 1000;
 }
 
 .help-btn:hover {
@@ -51,18 +62,21 @@ h1 {
     color: #fff;
 }
 
+/* Контейнер предпросмотра */
 .preview-container {
     width: 600px;
     height: 350px;
     background: linear-gradient(45deg, #dfeeff, #cae6ff);
     border-radius: 20px;
-    margin-bottom: 3rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
 }
+
 
 #video-preview {
     max-width: 100%;
@@ -75,12 +89,51 @@ h1 {
     color: #9ab3c9;
     font-size: 1.5em;
     text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
+/* Кнопка "Создать видео" */
+#create-video-btn {
+    background-color: #8ecae6;
+    color: white;
+    padding: 16px 35px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease, background 0.3s ease;
+}
+
+#create-video-btn.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+#create-video-btn:hover {
+    background-color: #219ebc;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* скрытие через opacity + scale, без display:none */
+#create-video-btn.hidden {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+/* Блок со смайликами */
 .mood-selector {
     display: flex;
-    gap: 30px;
-    margin-bottom: 3rem;
+    gap: 20px;
+    margin-bottom: 1rem;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -90,21 +143,18 @@ h1 {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 15px;
+    padding: 10px;
     border-radius: 50%;
     transition: transform 0.2s ease, background 0.3s ease;
-    filter: none;
-    opacity: 1;
-    color: inherit;
 }
 
 .mood-btn:hover,
 .mood-btn.selected {
     transform: scale(1.3);
-    filter: none;
     background: #e6f0ff;
 }
 
+/* Нижние кнопки (если будут использованы) */
 .controls {
     display: flex;
     flex-direction: column;
@@ -156,6 +206,7 @@ button {
     transform: translateY(-2px);
 }
 
+/* Слайдер */
 .slider-container {
     width: 100%;
     text-align: center;
@@ -168,6 +219,7 @@ button {
     cursor: pointer;
 }
 
+/* Лого DACHA */
 .dacha-logo {
     position: fixed;
     top: 25px;
@@ -180,6 +232,7 @@ button {
     font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
 }
 
+/* Анимация появления блоков */
 .fade-in {
     animation: fadeIn 0.8s ease forwards;
 }
@@ -189,6 +242,7 @@ button {
     to { opacity: 1; transform: scale(1); }
 }
 
+/* Toast уведомления */
 .toast-message {
     position: fixed;
     bottom: 30px;

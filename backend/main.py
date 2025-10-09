@@ -1,43 +1,30 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from schemas import MoodRequest
-from services import log_service, ml_service
+from services import log_service, video_selector  
 
 app = FastAPI(title="CalmLoop API Gateway")
 
 # Настройка CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],        # Разрешить все домены (для разработки)
-    allow_methods=["*"],        # Все методы (GET, POST и т.д.)
-    allow_headers=["*"],        # Все заголовки
+    allow_origins=["*"],        
+    allow_methods=["*"],        
+    allow_headers=["*"],        
 )
 
-# Роут для проверки сервера
-@app.get("/")
-async def root():
-    return {"message": "CalmLoop API Gateway работает!", "status": "ok"}
+# Раздаём папку с видео по /video/
+app.mount("/video", StaticFiles(directory="services/files"), name="video")
 
-# Роут для логирования настроения
-@app.post("/api/log-mood")
-async def log_mood(request: MoodRequest):
-    """
-    Получает настроение и длительность от фронтенда и
-    передает в сервис логирования.
-    """
-    result = log_service.log_mood(request)
-    return result
-
-# Роут для генерации видео через ML сервис
 @app.post("/api/generate-video")
-async def generate_video(request: MoodRequest):
-    """
-    Получает настроение и длительность,
-    передает в ML сервис для генерации видео.
-    """
-    video_url = ml_service.generate_video(request)
-    return {"status": "success", "video_url": video_url}
-
-
-
-
+async def generate_video_endpoint(request: MoodRequest):
+    try:
+        video_path = video_selector.select_random_video(request.mood)
+        # URL для фронта
+        video_url = f"/video/{request.mood}/video/{video_path.split('/')[-1]}"
+        return {"status": "success", "video_url": video_url}
+    except FileNotFoundError as e:
+        return {"status": "error", "message": str(e)}
+    except Exception as e:
+        return {"status": "error", "message": f"Неизвестная ошибка: {e}"}

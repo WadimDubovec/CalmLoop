@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CalmLoop - Антистресс видео</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toggle_stickers.css">
 </head>
 <body>
     <div class="dacha-logo">DACHA</div>
@@ -13,10 +14,10 @@
         <h1>CalmLoop</h1>
     </header>
 
-
     <main>
         <div class="preview-container">
             <div class="placeholder-text">Ваше видео появится здесь</div>
+            <button id="create-video-btn" class="hidden">Создать видео</button>
             <video id="video-preview" loop autoplay muted playsinline></video>
         </div>
 
@@ -28,19 +29,25 @@
             <button class="mood-btn" data-mood="thunderstorm" aria-label="Гроза">⛈️</button>
             <button class="mood-btn" data-mood="night_sky" aria-label="Ночное небо">🌙</button>
         </div>
+
+        <!-- Кнопка для раскрытия дополнительных стикеров -->
+        <button id="toggle-stickers" class="arrow-btn">⬇️</button>
+
+        <!-- Выпадающий список стикеров природы -->
+        <div class="sticker-dropdown">
+            <button class="sticker-btn" aria-label="Лист">🌿</button>
+            <button class="sticker-btn" aria-label="Падающий лист">🍃</button>
+            <button class="sticker-btn" aria-label="Цветок">🌸</button>
+            <button class="sticker-btn" aria-label="Опавший лист">🍂</button>
+            <button class="sticker-btn" aria-label="Бревно">🪵</button>
+            <button class="sticker-btn" aria-label="Гора с снегом">🏔️</button>
+            <button class="sticker-btn" aria-label="Колосья">🌾</button>
+            <button class="sticker-btn" aria-label="Птица">🐦</button>
+        </div>
     </main>
 
-    <footer class="controls">
-        <div class="action-buttons">
-            <button id="generate-btn">Создать видео</button>
-            <button id="download-btn" disabled>Скачать</button>
-        </div>
-        <!-- <div class="slider-container">
-            <input type="range" id="duration-slider" min="3" max="10" value="5">
-            <span>Длительность: <span id="duration-value">5</span> сек.</span>
-        </div> -->
-    </footer>
-
-    <script src="js/script.js" defer></script>
+    <script src="js/script.js"></script>
+    <script src="js/button_control.js"></script>
+    <script src="js/toogle_sticers.js"></script>
 </body>
 </html>
