@@ -11,6 +11,38 @@ document.addEventListener('DOMContentLoaded', () => {
     createVideoBtn.style.transform = 'translate(-50%, -50%) scale(0)';
     createVideoBtn.disabled = true;
 
+    // Функция для показа уведомлений
+    function showMessage(text, isError = false) {
+        // Удаляем предыдущие сообщения
+        const existingMessages = document.querySelectorAll('.toast-message');
+        existingMessages.forEach(msg => msg.remove());
+        const msg = document.createElement('div');
+        msg.textContent = text;
+        msg.className = 'toast-message';
+        if (isError) {
+            msg.style.background = '#ff6b6b';
+        }
+        document.body.appendChild(msg);
+
+        setTimeout(() => msg.classList.add('visible'), 10);
+        setTimeout(() => {
+            msg.classList.remove('visible');
+            setTimeout(() => msg.remove(), 300);
+        }, 3000);
+    }
+
+    // Функция для получения русского названия настроения
+    function getMoodDisplayName(mood) {
+        const names = {
+            calm_weather: 'Спокойная погода',
+            waterfall: 'Водопад',
+            forest: 'Лес',
+            thunderstorm: 'Гроза',
+            night_sky: 'Ночное небо'
+        };
+        return names[mood] || mood;
+    }
+
     moodButtons.forEach(button => {
         button.addEventListener('click', () => {
             placeholderText.style.opacity = 0;
@@ -32,11 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
             createVideoBtn.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
             createVideoBtn.style.opacity = 1;
             createVideoBtn.style.transform = 'translate(-50%, -50%) scale(1)';
+
+            showMessage(`✅ Выбрано: ${getMoodDisplayName(selectedMood)}`);
         });
     });
 
     createVideoBtn.addEventListener('click', async () => {
-        if (!selectedMood) return;
+        if (!selectedMood) {
+            showMessage('⚠️ Сначала выберите настроение!', true);
+            return;
+        }
 
         createVideoBtn.textContent = 'Создание...';
         createVideoBtn.disabled = true;
@@ -49,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                const errText = await response.text();
-                throw new Error(errText);
+                const errorData = await response.json().catch(() => ({ message: 'Ошибка сервера' }));
+                throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
             }
 
             const videoBlob = await response.blob();
@@ -68,16 +105,39 @@ document.addEventListener('DOMContentLoaded', () => {
             videoPreview.style.display = 'block';
             videoPreview.style.opacity = 0;
             videoPreview.style.transition = 'opacity 0.5s ease';
+
             setTimeout(() => {
                 videoPreview.style.opacity = 1;
             }, 50);
 
+            showMessage('✅ Видео успешно создано!');
+
+
+
         } catch (err) {
-            console.error(err);
-            alert('Ошибка сети или сервера: ' + err.message);
+            console.error('Ошибка:', err);
+            showMessage(`❌ Ошибка: ${err.message}`, true);
+            
+            // В случае ошибки показываем заглушку
+            videoPreview.style.display = 'none';
+            placeholderText.style.display = 'block';
+            placeholderText.style.opacity = 1;
         } finally {
             createVideoBtn.textContent = 'Создать видео';
             createVideoBtn.disabled = false;
+        }
+    });
+
+    // Проверка доступности сервера при загрузке
+    window.addEventListener('load', async () => {
+        try {
+            const response = await fetch('http://localhost:8000/');
+            if (response.ok) {
+                console.log('✅ Бэкенд доступен');
+            }
+        } catch (error) {
+            console.warn('⚠️ Бэкенд недоступен');
+            showMessage('⚠️ Сервер недоступен. Проверьте подключение.', true);
         }
     });
 });
