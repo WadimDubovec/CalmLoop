@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             msg.classList.remove('visible');
             setTimeout(() => msg.remove(), 300);
-        }, 3000);
+        }, 1500);
     }
 
     // Функция для получения русского названия настроения

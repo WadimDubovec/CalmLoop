@@ -22,12 +22,18 @@
         </div>
 
         <!-- Блок выбора настроения -->
-        <div class="mood-selector">
-            <button class="mood-btn" data-mood="calm_weather" aria-label="Спокойная погода">☀️</button>
-            <button class="mood-btn" data-mood="waterfall" aria-label="Водопад">🌊</button>
-            <button class="mood-btn" data-mood="forest" aria-label="Лес">🌲</button>
-            <button class="mood-btn" data-mood="thunderstorm" aria-label="Гроза">⛈️</button>
-            <button class="mood-btn" data-mood="night_sky" aria-label="Ночное небо">🌙</button>
+        <div class="mood-selector">            
+            <!-- Остальные кнопки в общем контейнере -->
+            <div class="mood-buttons-group">
+                <button class="mood-btn" data-mood="calm_weather" aria-label="Спокойная погода">☀️</button>
+                <button class="mood-btn" data-mood="waterfall" aria-label="Водопад">🌊</button>
+                <button class="mood-btn" data-mood="forest" aria-label="Лес">🌲</button>
+                <button class="mood-btn" data-mood="thunderstorm" aria-label="Гроза">⛈️</button>
+                <button class="mood-btn" data-mood="night_sky" aria-label="Ночное небо">🌙</button>
+            </div>
+
+            <!-- Кнопка погоды отдельно -->
+            <button class="mood-btn weather-btn" data-mood="current_weather" aria-label="Текущая погода">📍</button>
         </div>
 
         <!-- Кнопка для раскрытия дополнительных стикеров -->
@@ -35,14 +41,14 @@
 
         <!-- Выпадающий список стикеров природы -->
         <div class="sticker-dropdown">
-            <button class="sticker-btn" aria-label="Лист">🌿</button>
-            <button class="sticker-btn" aria-label="Падающий лист">🍃</button>
-            <button class="sticker-btn" aria-label="Цветок">🌸</button>
-            <button class="sticker-btn" aria-label="Опавший лист">🍂</button>
-            <button class="sticker-btn" aria-label="Бревно">🪵</button>
-            <button class="sticker-btn" aria-label="Гора с снегом">🏔️</button>
-            <button class="sticker-btn" aria-label="Колосья">🌾</button>
-            <button class="sticker-btn" aria-label="Птица">🐦</button>
+            <button class="mood-btn" aria-label="Лист">🌿</button>
+            <button class="mood-btn" aria-label="Падающий лист">🍃</button>
+            <button class="mood-btn" aria-label="Цветок">🌸</button>
+            <button class="mood-btn" aria-label="Опавший лист">🍂</button>
+            <button class="mood-btn" aria-label="Бревно">🪵</button>
+            <button class="mood-btn" aria-label="Гора с снегом">🏔️</button>
+            <button class="mood-btn" aria-label="Колосья">🌾</button>
+            <button class="mood-btn" aria-label="Птица">🐦</button>
         </div>
     </main>
 

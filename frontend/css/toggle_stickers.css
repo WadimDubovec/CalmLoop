@@ -12,15 +12,19 @@
 }
 
 .sticker-dropdown {
+    width: 100vh;
     display: flex;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease;
+    border-radius: 20px; /* Добавляем закругление */
+    padding: 0; /* Начальный padding */
 }
 
 .sticker-dropdown.show {
-    max-height: 200px; /* или достаточно для всех стикеров */
+    max-height: 500px; /* или достаточно для всех стикеров */
+    padding: 20px; /* Добавляем padding когда открыто */
 }

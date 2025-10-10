@@ -19,5 +19,8 @@ def select_random_video(mood: str) -> str:
         raise FileNotFoundError(f"❌ Нет доступных видео в {VIDEO_DIR}")
 
     selected_video = random.choice(videos)
+    print("="*70)
     print(f"🎬 Выбрано видео для настроения '{mood}': {selected_video}")
+    print("="*70)
+    
     return str(selected_video)

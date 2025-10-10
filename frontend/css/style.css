@@ -132,10 +132,17 @@ h1 {
 /* Блок со смайликами */
 .mood-selector {
     display: flex;
-    gap: 20px;
+    align-items: center;
+    /* gap: 40px; Отступ между кнопкой погоды и группой */
     margin-bottom: 1rem;
     justify-content: center;
+}
+
+.mood-buttons-group {
+    display: flex;
+    gap: 20px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .mood-btn {
@@ -146,6 +153,9 @@ h1 {
     padding: 10px;
     border-radius: 50%;
     transition: transform 0.2s ease, background 0.3s ease;
+}
+.weather-btn{
+    margin-left: 50px;
 }
 
 .mood-btn:hover,
