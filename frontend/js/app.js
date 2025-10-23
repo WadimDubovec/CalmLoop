@@ -92,6 +92,9 @@ class App {
             this.uiManager.setCreateButtonLoading(false);
             this.uiManager.showPlaceholder(false);
 
+             //скрываем кнопку создания видео
+            this.uiManager.showCreateButton(false); 
+
             // Загружаем и воспроизводим видео
             await this.loadAndPlayVideo(videoURL);
 
