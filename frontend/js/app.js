@@ -73,6 +73,12 @@ class App {
         this.uiManager.setCreateButtonState(true);
         this.notificationManager.showMessage('🔄 Создание видео...');
 
+        // Показываем анимацию на кнопке
+        this.uiManager.setCreateButtonState(true);
+        this.uiManager.showCreateButton(true);
+        this.uiManager.setCreateButtonLoading(true);
+        // НЕ скрываем placeholder - он должен оставаться
+
         try {
             await this.apiService.clearStorageQuota();
             
@@ -82,8 +88,8 @@ class App {
             // Очищаем предыдущее видео
             this.videoManager.cleanup();
 
-            // Скрываем кнопку и заглушку ПЕРЕД загрузкой видео
-            this.uiManager.showCreateButton(false);
+            // Скрываем анимацию кнопки и placeholder
+            this.uiManager.setCreateButtonLoading(false);
             this.uiManager.showPlaceholder(false);
 
             // Загружаем и воспроизводим видео
@@ -109,6 +115,7 @@ class App {
             this.handleCreationError();
         } finally {
             this.uiManager.setCreateButtonState(false);
+            this.uiManager.setCreateButtonLoading(false);
         }
     }
 
@@ -138,9 +145,9 @@ class App {
 
     handleCreationError() {
         console.log("🔄 Обработка ошибки создания");
-        // При ошибке НЕ показываем placeholder, показываем только кнопку
+        // При ошибке показываем placeholder и кнопку
         this.uiManager.showVideoPreview(false);
-        this.uiManager.showPlaceholder(false); // Не показываем placeholder!
+        this.uiManager.showPlaceholder(true); // Показываем placeholder
         this.uiManager.showCreateButton(true); // Показываем кнопку
         this.videoManager.cleanup();
     }

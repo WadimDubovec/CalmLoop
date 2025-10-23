@@ -1,1 +1,8 @@
 .env
+.DS_Store
+.vscode
+.backend/services/files/calm_weather/video/
+.backend/services/files/forest/video/
+.backend/services/files/thunderstorm/video/
+.backend/services/files/waterfall/video/
+.backend/services/files/night_sky/video/

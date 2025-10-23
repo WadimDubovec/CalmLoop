@@ -7,9 +7,12 @@ export class UIManager {
         this.placeholderText = document.querySelector('.placeholder-text');
         this.videoPreview = document.getElementById('video-preview');
         this.previewContainer = document.querySelector('.preview-container');
+        this.loadingSpinner = document.getElementById('loading-spinner');
+        this.loadingProgress = document.getElementById('loading-progress');
         
         this.selectedMood = null;
         this.hasUserSelectedMood = false; // Флаг: пользователь уже выбирал настроение
+        this.loadingStartTime = null;
         
         this.initUI();
     }
@@ -162,5 +165,28 @@ export class UIManager {
     // Получить все кнопки настроения
     getMoodButtons() {
         return this.moodButtons;
+    }
+
+    // Показать анимацию загрузки
+    showLoadingSpinner(show = true) {
+        if (show) {
+            this.loadingStartTime = Date.now();
+            this.loadingSpinner.style.display = 'flex';
+            this.startLoadingProgress();
+        } else {
+            this.loadingSpinner.style.display = 'none';
+            this.loadingStartTime = null;
+        }
+    }
+
+    // Управление анимацией кнопки
+    setCreateButtonLoading(loading = true) {
+        if (loading) {
+            this.createVideoBtn.classList.add('loading');
+            this.createVideoBtn.textContent = 'Создаём...';
+        } else {
+            this.createVideoBtn.classList.remove('loading');
+            this.createVideoBtn.textContent = 'Создать видео';
+        }
     }
 }
